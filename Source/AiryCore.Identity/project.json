@@ -1,0 +1,16 @@
+{
+  "description": "ASP.NET Core Identity provider that uses NHibernate.",
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "warningsAsErrors": true,
+    "keyFile": "../../Tools/Key.snk",
+    "xmlDoc": true
+  },
+  "dependencies": {
+    "AiryCore.Identity.Core": "1.0.0-*",
+  },
+  "frameworks": {
+    "net451": {
+    }
+  }
+}

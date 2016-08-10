@@ -1,0 +1,35 @@
+{
+  "description": "ASP.NET Core Identity provider that uses NHibernate.",
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "warningsAsErrors": true,
+    "keyFile": "../../Tools/Key.snk",
+    "xmlDoc": true
+  },
+  "packOptions": {
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/mlintell/Alaunis.AspNetCore.Identity.NHibernate"
+    },
+    "tags": [
+      "aspnetcore",
+      "nhibernate",
+      "identity",
+      "membership"
+    ]
+  },
+  "dependencies": {
+    "AiryCore.Identity": "1.0.0-*",
+    "AiryCore.Identity.Core": "1.0.0-*",
+    "Microsoft.AspNetCore.Identity": "1.0.0",
+    "Microsoft.Extensions.DependencyInjection": "1.0.0",
+    "NHibernate": "4.0.4.4000"
+  },
+  "frameworks": {
+    "net451": {
+      "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": "4.0.0.0"
+      }
+    }
+  }
+}

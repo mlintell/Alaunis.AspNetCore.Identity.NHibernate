@@ -113,6 +113,7 @@ _TeamCity*
 _NCrunch_*
 .*crunch*.local.xml
 nCrunchTemp_*
+*.ncrunchsolution
 
 # MightyMoose
 *.mm.*
@@ -161,6 +162,7 @@ PublishScripts/
 # NuGet v3's project.json files produces more ignoreable files
 *.nuget.props
 *.nuget.targets
+.nuget/
 
 # Microsoft Azure Build Output
 csx/
@@ -250,3 +252,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+*DS_Store
