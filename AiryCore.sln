@@ -9,6 +9,12 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AiryCore.Identity", "Source
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AiryCore.Identity.NHibernate", "Source\AiryCore.Identity.NHibernate\AiryCore.Identity.NHibernate.xproj", "{5E545B8F-5A2D-43F9-BFDA-964D20C2488E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{9AF6E1BA-428C-4641-A961-A2165EC8C24C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C72E61CB-9CA0-4CBA-9433-6E8516226EBC}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AiryCore.Identity.Test", "Tests\AiryCore.Identity.Test\AiryCore.Identity.Test.xproj", "{C95D53BC-C2BE-4CA7-A64A-0E22AA2A3A69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +33,18 @@ Global
 		{5E545B8F-5A2D-43F9-BFDA-964D20C2488E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E545B8F-5A2D-43F9-BFDA-964D20C2488E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E545B8F-5A2D-43F9-BFDA-964D20C2488E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C95D53BC-C2BE-4CA7-A64A-0E22AA2A3A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C95D53BC-C2BE-4CA7-A64A-0E22AA2A3A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C95D53BC-C2BE-4CA7-A64A-0E22AA2A3A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C95D53BC-C2BE-4CA7-A64A-0E22AA2A3A69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{986BBE63-476D-47D5-8C38-0DE375D62DC8} = {9AF6E1BA-428C-4641-A961-A2165EC8C24C}
+		{266F1076-9095-4CCF-B00E-C7616AA16C2A} = {9AF6E1BA-428C-4641-A961-A2165EC8C24C}
+		{5E545B8F-5A2D-43F9-BFDA-964D20C2488E} = {9AF6E1BA-428C-4641-A961-A2165EC8C24C}
+		{C95D53BC-C2BE-4CA7-A64A-0E22AA2A3A69} = {C72E61CB-9CA0-4CBA-9433-6E8516226EBC}
 	EndGlobalSection
 EndGlobal

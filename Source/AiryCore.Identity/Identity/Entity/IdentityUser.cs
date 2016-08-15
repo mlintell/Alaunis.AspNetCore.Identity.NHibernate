@@ -6,6 +6,7 @@ namespace AiryCore.Identity.Entity
     using System;
     using System.Collections.Generic;
 
+    using AiryCore.Identity.Contract;
     using AiryCore.Identity.Core;
 
     /// <summary>
@@ -55,7 +56,7 @@ namespace AiryCore.Identity.Entity
     /// <typeparam name="TUserClaim">The type representing a claim.</typeparam>
     /// <typeparam name="TUserLogin">The type representing a user external login.</typeparam>
     /// <typeparam name="TRole">The type representing a role.</typeparam>
-    public class IdentityUser<TUserKey, TUserClaim, TUserLogin, TRole> : EntityWithId<TUserKey>
+    public class IdentityUser<TUserKey, TUserClaim, TUserLogin, TRole> : EntityWithId<TUserKey>, IIdentityUser<TUserKey, TUserClaim, TUserLogin, TRole>
         where TUserKey : IEquatable<TUserKey>
     {
         /// <summary>

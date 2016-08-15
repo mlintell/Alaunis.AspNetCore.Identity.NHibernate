@@ -65,6 +65,21 @@
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="MappingHelper{TUserKey, TUser, TUserClaimKey, TUserClaim, TLogin, TToken, TRoleKey, TRole, TRoleClaimKey, TRoleClaim}"/> class.
+        /// </summary>
+        /// <param name="mapper">The mapper.</param>
+        public MappingHelper(DefaultModelMapper mapper)
+        {
+            // The default model mapper class:
+            //  ** Ignores abstract classes.
+            //  ** Uses native generator for int Ids, Generators.GuidComb generator for Guid Ids and string length of 128 for string Ids.
+            //  ** Sets a fields size to the properties StringLength attribute if it has one.
+            //  ** Sets non-nullable types to be not nullable in the database.
+            //  ** Creates indexes based on the index attributes of properties.
+            this.Mapper = mapper;
+        }
+
+        /// <summary>
         /// The name to use for the Many to Many link table for the User to Roles relationship.
         /// </summary>
         private const string UsersRolesLinkTableName = "AspNetUserRoles";

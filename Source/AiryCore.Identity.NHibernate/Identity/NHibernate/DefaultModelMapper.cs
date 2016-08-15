@@ -8,6 +8,7 @@
 
     using AiryCore.Extensions.NHibernate;
     using AiryCore.Identity.Core.Attribute;
+    using AiryCore.UserTypes;
 
     using global::NHibernate.Driver;
     using global::NHibernate.Mapping.ByCode;
@@ -21,56 +22,47 @@
         /// <summary>
         /// The suffix (added to the name of the property) used for the name for foreign key fields.
         /// </summary>
-        private readonly string _foreignKeyColumnSuffix = "Id";
+        private readonly string _foreignKeyColumnSuffix;
 
         /// <summary>
         /// The prefix (added before the name of the property) used for the name for foreign key.
         /// </summary>
-        private readonly string _foreignKeyNamePrefix = "FK_";
+        private readonly string _foreignKeyNamePrefix;
 
         /// <summary>
         /// The string inserted between the names of the two tables being linked in a many to many relationship to create the link table name.
         /// </summary>
-        private readonly string _manyToManyLinkTableInsert = "To";
-
-        /// <summary>
-        /// Creates a new model mapper with the convention naming style using the default values.
-        /// </summary>
-        public DefaultModelMapper()
-        {
-            this.DeafultMapperSetup();
-            this.AddNamingConventionsToMapper();
-        }
-
-        /// <summary>
-        /// Creates a new model mapper with or without the convention naming style using the default values.
-        /// </summary>
-        /// <param name="useConventionMapping">true to use the convention naming style mapping, false to use the mapping by code base style mapping.</param>
-        public DefaultModelMapper(bool useConventionMapping)
-        {
-            this.DeafultMapperSetup();
-            if (useConventionMapping)
-            {
-                this.AddNamingConventionsToMapper();
-            }
-        }
+        private readonly string _manyToManyLinkTableInsert;
 
         /// <summary>
         /// Creates a new model mapper with the convention naming style using the supplied values.
         /// </summary>
+        /// <param name="useDateTimeOffsetWorkaround">true to use the DateTimeOffsetSplitType custom user type as a workaround for databases without DateTimeOffset support, false to use the default DateTimeOffset type.</param>
+        /// <param name="useConventionMapping">true to use the convention naming style mapping, false to use the mapping by code base style mapping.</param>
         /// <param name="foreignKeyColumnSuffix">The suffix to use for foreign key columns.</param>
         /// <param name="manyToManyLinkTableInsert">The insert to use between the referenced table names for a link table name.</param>
         /// <param name="foreignKeyNamePrefix">The prefix to use before the foreign key name.</param>
         public DefaultModelMapper(
-            string foreignKeyColumnSuffix,
-            string manyToManyLinkTableInsert,
-            string foreignKeyNamePrefix)
+            bool useDateTimeOffsetWorkaround = false,
+            bool useConventionMapping = true,
+            string foreignKeyColumnSuffix = "Id",
+            string manyToManyLinkTableInsert = "To",
+            string foreignKeyNamePrefix = "FK_")
         {
             this._foreignKeyColumnSuffix = foreignKeyColumnSuffix;
             this._manyToManyLinkTableInsert = manyToManyLinkTableInsert;
             this._foreignKeyNamePrefix = foreignKeyNamePrefix;
             this.DeafultMapperSetup();
-            this.AddNamingConventionsToMapper();
+
+            if (useDateTimeOffsetWorkaround)
+            {
+                this.BeforeMapProperty += this.ApplyDateTimeOffsetSplitTypeToDateTimeOffset;
+            }
+
+            if (useConventionMapping)
+            {
+                this.AddNamingConventionsToMapper();
+            }
         }
 
         /// <summary>
@@ -309,6 +301,24 @@
             if (!IsNullable(memberType))
             {
                 customizer.NotNullable(true);
+            }
+        }
+
+        /// <summary>
+        /// Applies the <see cref="DateTimeOffsetSplitType"/> Composite user type to all <see cref="DateTimeOffset"/> fields in the mapping.
+        /// </summary>
+        /// <remarks>
+        /// Allows the use of <see cref="DateTimeOffset"/> type with databases that do not natively support it.
+        /// User: mapper.BeforeMapProperty += ModelMapperHelper.ApplyDateTimeOffsetSplitTypeToDateTimeOffset
+        /// </remarks>
+        private void ApplyDateTimeOffsetSplitTypeToDateTimeOffset(IModelInspector inspector, PropertyPath property, IPropertyMapper mapper)
+        {
+            Type propertyType = property.LocalMember.GetPropertyOrFieldType();
+            if (propertyType == typeof(DateTimeOffset) || propertyType == typeof(DateTimeOffset?))
+            {
+                mapper.Type(typeof(DateTimeOffsetSplitType), null);
+                string columName = property.ToColumnName();
+                mapper.Columns(n => n.Name(columName + "DateTime"), n => n.Name(columName + "Offset"));
             }
         }
     }

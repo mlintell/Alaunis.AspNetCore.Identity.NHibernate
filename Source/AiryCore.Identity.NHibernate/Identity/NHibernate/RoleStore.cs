@@ -71,7 +71,12 @@ namespace AiryCore.Identity.NHibernate
         /// <returns>The role claim entity.</returns>
         protected override IdentityRoleClaim<TKey, TRole> CreateRoleClaim(TRole role, Claim claim)
         {
-            return new IdentityRoleClaim<TKey, TRole> { Role = role, ClaimType = claim.Type, ClaimValue = claim.Value };
+            return new IdentityRoleClaim<TKey, TRole>
+            {
+                Role = role,
+                ClaimType = claim.Type,
+                ClaimValue = claim.Value
+            };
         }
     }
 
